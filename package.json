@@ -1,0 +1,38 @@
+{
+  "name": "chatbase-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "$(npm bin)/nyc --reporter=html --reporter=text ava --tap ./tests",
+    "integration": "$(npm bin)/ava --tap ./tests/integration/"
+  },
+  "author": "Google Inc.",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "ava": "^0.18.1",
+    "lodash.isfunction": "^3.0.8",
+    "nock": "^9.0.6",
+    "nyc": "^10.1.2"
+  },
+  "dependencies": {
+    "debug": "^2.6.0",
+    "got": "^6.7.1",
+    "lodash.every": "^4.6.0",
+    "lodash.has": "^4.5.2",
+    "lodash.isboolean": "^3.0.3",
+    "lodash.isempty": "^4.4.0",
+    "lodash.isnull": "^3.0.0",
+    "lodash.isstring": "^4.0.1",
+    "lodash.merge": "^4.6.0",
+    "lodash.omit": "^4.5.0",
+    "lodash.omitby": "^4.6.0",
+    "lodash.pick": "^4.4.0",
+    "lodash.pickby": "^4.6.0"
+  },
+  "nyc": {
+    "exclude": [
+      "tests"
+    ]
+  }
+}
