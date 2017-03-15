@@ -17,46 +17,12 @@
 'use strict';
 
 import test from 'ava';
-const isFunction = require('lodash.isfunction');
 const ApplicationInterface = require('../../lib/ApplicationInterface');
+const MessageSet = require('../../lib/MessageSet');
 var inst;
 
 test.beforeEach(t => inst = new ApplicationInterface());
 
-test('Initial state', t => {
-  t.is(inst.api_key, null);
-  t.is(inst.user_id, null);
-  t.is(inst.platform, null);
-  t.is(inst.type, null);
-});
-
-test('setApiKey', t => {
-  t.is(inst.setApiKey('x').api_key, 'x');
-  t.is(inst.newMessage().api_key, 'x');
-});
-
-test('setUserId', t => {
-  t.is(inst.setUserId('x').user_id, 'x');
-  t.is(inst.newMessage().user_id, 'x');
-});
-
-test('setPlatform', t => {
-  t.is(inst.setPlatform('x').platform, 'x');
-  t.is(inst.newMessage().platform, 'x');
-});
-
-test('setAsTypeUser', t => {
-  t.is(inst.setAsTypeUser().type, 'user');
-  t.is(inst.newMessage().type, 'user');
-});
-
-test('setAsTypeAgent', t => {
-  t.is(inst.setAsTypeAgent().type, 'agent');
-  t.is(inst.newMessage().type, 'agent');
-});
-
-test('newMessage invocation with only api_key and user_id arguments', t => {
-  const msg = inst.newMessage('x', 'y');
-  t.is(msg.api_key, 'x');
-  t.is(msg.user_id, 'y');
+test('newMessageSet', t => {
+  t.true(inst.newMessageSet() instanceof MessageSet);
 });

@@ -17,10 +17,10 @@
 'use strict';
 
 import test from 'ava';
-const MessageStateSink = require('../../../lib/MessageStateSink.js');
+const MessageLifecycleState = require('../../../lib/MessageLifecycleState.js');
 var inst;
 
-test.beforeEach(t => inst = new MessageStateSink());
+test.beforeEach(t => inst = new MessageLifecycleState());
 
 test('create.started', t => {
   t.is(inst.createEntryStarted(), false, 'should be false');

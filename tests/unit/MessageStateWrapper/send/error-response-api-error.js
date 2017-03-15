@@ -29,7 +29,7 @@ test.before(t => {
     .post('')
     .once()
     // Please observe the status property of the body versus the response status
-    .reply(200, {body: {status: 500}});
+    .reply(200, {status: 500});
 });
 
 test.after(t => {

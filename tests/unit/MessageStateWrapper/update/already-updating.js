@@ -22,8 +22,8 @@ const errors = require('../../../../lib/MessageStateWrapper/errors.js');
 
 test('Invoking update() on a message that is already being updated', async t => {
   const eut = (new MessageStateWrapper('x', 'y'))
-    .setAsCreateCompleted()
-    .setAsUpdateStarted();
+  eut._state.setAsCreateCompleted();
+  eut._state.setAsUpdateStarted();
   const error = await t.throws(eut.update());
   t.true(error instanceof errors.MessageHasAlreadyBeenUpdated,
     'The error should be an instance of the MessageHasAlreadyBeenUpdated class');

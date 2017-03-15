@@ -17,14 +17,13 @@
 'use strict';
 
 import test from 'ava';
-const MessageStateWrapper = require('../../../../lib/MessageStateWrapper.js');
-// Errors arising in this call come from parent implmentation MessageSink
-const errors = require('../../../../lib/MessageSink/errors.js');
+const MessageSet = require('../../../../lib/MessageSet.js');
+const errors = require('../../../../lib/MessageSet/errors.js');
 
-test('Invoking send() on a message lacking necessary fields', async t => {
-  const eut = (new MessageStateWrapper('x', 'y'));
-  eut._state.setAsCreateCompleted();
-  const error = await t.throws(eut.update());
-  t.true(error instanceof errors.RequiredKeysNotSet,
-    'The error should be an instance of the RequiredKeysNotSet class');
+test('Invoking send() on an already sent message', async t => {
+  const eut = new MessageSet();
+  eut._state.setAsCreateStarted();
+  const error = await t.throws(eut.sendMessageSet());
+  t.true(error instanceof errors.MessageSetHasAlreadyBeenSent,
+    'The error should be an instance of the MessageSetHasAlreadyBeenSent class');
 });

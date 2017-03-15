@@ -17,14 +17,26 @@
 'use strict';
 
 import test from 'ava';
-const MessageStateWrapper = require('../../../../lib/MessageStateWrapper.js');
-// Errors arising in this call come from parent implmentation MessageSink
-const errors = require('../../../../lib/MessageSink/errors.js');
+import pick from 'lodash.pick';
+const MessageSetMessage = require('../../lib/MessageSetMessage');
+var inst;
 
-test('Invoking send() on a message lacking necessary fields', async t => {
-  const eut = (new MessageStateWrapper('x', 'y'));
-  eut._state.setAsCreateCompleted();
-  const error = await t.throws(eut.update());
-  t.true(error instanceof errors.RequiredKeysNotSet,
-    'The error should be an instance of the RequiredKeysNotSet class');
+test.beforeEach(t => inst = new MessageSetMessage());
+
+test('Constructor argument pass-through', t => {
+  const apiKey = 'abc';
+  const userId = 'xyz';
+  const eut = new MessageSetMessage(apiKey, userId);
+  t.deepEqual({
+    api_key: apiKey
+    , user_id: userId
+  }, pick(eut, ['api_key', 'user_id']));
+});
+
+test('send -- virtual', t => {
+  t.throws(inst.send.bind(inst, 'x'));
+});
+
+test('update -- virtual', t => {
+  t.throws(inst.update.bind(inst, 'y'));
 });

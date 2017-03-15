@@ -22,7 +22,8 @@ const errors = require('../../../../lib/MessageStateWrapper/errors.js');
 
 test('Invoking send() on an already sent message', async t => {
   const eut = new MessageStateWrapper('x', 'y');
-  const error = await t.throws(eut.setAsCreateStarted().send());
+  eut._state.setAsCreateStarted();
+  const error = await t.throws(eut.send());
   t.true(error instanceof errors.MessageHasAlreadyBeenSent,
     'The error should be an instance of the MessageHasAlreadyBeenSent class');
 });

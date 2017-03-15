@@ -21,8 +21,8 @@ const MessageStateWrapper = require('../../../../lib/MessageStateWrapper.js');
 const errors = require('../../../../lib/MessageStateWrapper/errors.js');
 
 test('Invoking update() on a message that cannot be updated', async t => {
-  const eut = (new MessageStateWrapper('x', 'y'))
-    .setAsCreateErrored({error: new Error('500')});
+  const eut = (new MessageStateWrapper('x', 'y'));
+  eut._state.setAsCreateErrored({error: new Error('500')});
   const error = await t.throws(eut.update());
   t.true(error instanceof errors.MessageCannotBeUpdated,
     'The error should be an instance of the MessageCannotBeUpdated class');

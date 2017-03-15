@@ -18,33 +18,26 @@
 
 import test from 'ava';
 const nock = require('nock');
-const MessageStateWrapper = require('../../../../lib/MessageStateWrapper.js');
+const MessageSet = require('../../../../lib/MessageSet.js');
 const Transport = require('../../../../lib/Transport');
-const errors = require('../../../../lib/MessageStateWrapper/errors.js');
-const query = {
-  message_id: 'abc'
-  , api_key: 'x'
-};
 const resp = {
-  status: 200
-  , updated: ['intent']
+  "all_succeeded": true
+  , "responses": [{"message_id": 123, "status": "success"}]
+  , "status": 200
 };
-const intent = ['test', Date.now()].join('-');
-var scope, eut;
+var scope, eut, msg;
 
 test.before(t => {
   nock.disableNetConnect();
-  scope = nock(Transport.UPDATE_ENDPOINT)
-    .put('', {
-      intent: intent
-    })
-    .query(query)
+  scope = nock(Transport.CREATE_SET_ENDPOINT)
+    .post('')
     .once()
     .reply(200, resp);
-  eut = (new MessageStateWrapper(query.api_key, 'y'))
-    .setMessageId(query.message_id);
-  eut._state.setAsCreateCompleted();
-  eut.setIntent(intent);
+  eut = (new MessageSet())
+    .setApiKey('x')
+    .setUserId('y')
+    .setPlatform('z');
+  msg = eut.newMessage().setMessage('abc');
 });
 
 test.after(t => {
@@ -54,11 +47,10 @@ test.after(t => {
   nock.enableNetConnect();
 });
 
-test.cb('Receiving a valid response', t => {
-  console.log('starting')
-  eut.update().then(eut => {
-    t.true(eut.updateEntryStarted(), 'updateEntryStarted flag should be true');
-    t.true(eut.updateEntryCompleted(), 'updateEntryCompleted flag should be true');
-    t.end();
-  }).catch(e => console.log('got e', e))
+test('Receiving a valid response', t => {
+  return eut.sendMessageSet().then(eut => {
+    t.deepEqual(eut.getCreateResponse(), resp);
+    t.true(eut.createEntryStarted(), 'createEntryStarted flag should be true');
+    t.true(eut.createEntryCompleted(), 'createEntryCompleted flag should be true');
+  }).catch(e => console.error(e));
 });

@@ -18,16 +18,15 @@
 
 import test from 'ava';
 const nock = require('nock');
-const MessageStateWrapper = require('../../../../lib/MessageStateWrapper.js');
+const MessageSet = require('../../../../lib/MessageSet.js');
+const errors = require('../../../../lib/MessageSet/errors.js');
 const Transport = require('../../../../lib/Transport');
-const errors = require('../../../../lib/MessageStateWrapper/errors.js');
 var scope;
 
 test.before(t => {
   nock.disableNetConnect();
-  scope = nock(Transport.UPDATE_ENDPOINT)
-    .put('')
-    .query({api_key: 'x', message_id: 'abc'})
+  scope = nock(Transport.CREATE_SET_ENDPOINT)
+    .post('')
     .once()
     // Please observe the status property of the body versus the response status
     .reply(200, {status: 500});
@@ -40,11 +39,10 @@ test.after(t => {
 });
 
 test('Receiving an API-specific error-body from send() invocation', async t => {
-  const eut = (new MessageStateWrapper('x', 'y')).setMessageId('abc');
-  eut._state.setAsCreateCompleted();
-  const error = await t.throws(eut.update());
-  t.true(error instanceof errors.BadStatusUpdateResponse,
-    'The error should be an instance of the BadStatusUpdateResponse class');
-  t.true(eut.cannotBeUpdated().error instanceof errors.BadStatusUpdateResponse);
+  const eut = (new MessageSet()).setApiKey('x').setUserId('y').setPlatform('z');
+  const msg = eut.newMessage().setMessage('abc');
+  const error = await t.throws(eut.sendMessageSet());
+  t.true(error instanceof errors.BadStatusCreateResponse,
+    'The error should be an instance of the BadStatusCreateResponse class');
   scope.done();
 });

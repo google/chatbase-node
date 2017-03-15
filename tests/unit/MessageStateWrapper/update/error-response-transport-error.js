@@ -42,9 +42,8 @@ test.after(t => {
 });
 
 test('Receiving a Transport-specific error status-code from send() invocation', async t => {
-  const eut = (new MessageStateWrapper('x', 'y'))
-    .setMessageId('abc')
-    .setAsCreateCompleted();
+  const eut = (new MessageStateWrapper('x', 'y')).setMessageId('abc');
+  eut._state.setAsCreateCompleted();
   const error = await t.throws(eut.update());
   t.is(error.name, 'HTTPError',
     'The error should be a generic HTTPError instance');
