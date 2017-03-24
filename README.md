@@ -12,13 +12,13 @@
 
 ## Use
 
-Require the client in your application:
+Require the client in the target application:
 
 ```JS
 var chatbase = require('chatbase-node');
 ```
 
-Set your api key, user id, agent-type, and platform on the imported module to automatically create new messages with these fields pre-populated:
+Set a valid api key, user id, agent-type, and platform on the imported module to automatically create new messages with these fields pre-populated:
 
 ```JS
 var chatbase = require('chatbase-node')
@@ -32,7 +32,7 @@ var msg = chatbase.newMessage();
 assert(msg.api_key === process.env.MY_CHATBASE_KEY);
 ```
 
-Or you can set these on each individual message. Note: api key and user id must be provided as arguments to newMessage if you would like to override the factory when it has been previously set.
+Or one can set these on each individual message. Note: api key and user id must be provided as arguments to newMessage if one would like to override the factory when it has been previously set.
 
 ```JS
 var chatbase = require('chatbase-node')
@@ -99,4 +99,42 @@ chatbase.newMessage('my-api-key', 'my-user-id')
 			.catch(err => console.error(err));
 	})
 	.catch(err => console.error(err));
+```
+
+Groups of messages can also be queued and sent together:
+
+```JS
+var chatbase = require('chatbase-node');
+
+const set = chatbase.newMessageSet()
+	// The following are optional setters which will produce new messages with
+	// the corresponding fields already set!
+	.setApiKey('abc')
+	.setUserId('123')
+	.setPlatform('chat-space');
+
+// Once can add new messages to the set without storing them locally
+set.newMessage()
+	.setMessage('test_1')
+	.setIntent('book-flight')
+	// This is a regular message object with all the same setter with the caveat
+	// that one cannot send the message individually. All other setter methods
+	// still apply though.
+
+// One can also store the reference to the individual message if one would like
+// to keep a reference to the individual message instance
+const msg = set.newMessage()
+	.setMessage('test_2')
+	// Pass msg around and profit
+
+// Once the desired messages are queued on the set it can be sent
+set.sendMessageSet()
+	.then(set => {
+		// The API accepted our request!
+		console.log(set.getCreateResponse());
+	})
+	.catch(error => {
+		// Something went wrong!
+		console.error(error);
+	})
 ```

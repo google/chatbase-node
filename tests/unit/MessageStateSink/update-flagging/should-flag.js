@@ -56,16 +56,28 @@ test('version while in state createCompleted w/o error', t => {
 });
 
 test('feedback while in state createCompleted w/o error', t => {
-  inst._state.setAsCreateCompleted();
+  const response = {test: true};
+  inst._state.setAsCreateCompleted(response);
   t.is(inst.setAsFeedback().feedback, true);
   t.deepEqual(pick(inst._state.optionsManifest(), ['feedback']), {
     feedback: true
   });
+  t.is(inst.getCreateResponse(), response);
 });
+
 test('feedback while in state createCompleted w/o error', t => {
   inst._state.setAsCreateCompleted();
   t.is(inst.setAsNotFeedback().feedback, false);
   t.deepEqual(pick(inst._state.optionsManifest(), ['feedback']), {
     feedback: true
   });
+});
+
+test('getUpdateResponse API wrapper', t => {
+  const respCreate = {test: true};
+  const respUpdate = {test: false};
+  inst._state.setAsCreateCompleted(respCreate);
+  inst._state.setAsUpdateCompleted(respUpdate);
+  t.is(inst.getCreateResponse(), respCreate);
+  t.is(inst.getUpdateResponse(), respUpdate);
 });

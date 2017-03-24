@@ -47,8 +47,6 @@ test('Update manifest in which each property is set to false', t => {
   t.false(every(inst._state.optionsManifest()));
 });
 
-test('messageId', t => t.is(inst.messageId(), null, 'Should be null'));
-
 test('createEntryStarted', t => t.false(inst.createEntryStarted()));
 
 test('createEntryCompleted', t => t.false(inst.createEntryCompleted()));
@@ -58,3 +56,7 @@ test('updateEntryStarted', t => t.false(inst.updateEntryStarted()));
 test('updateEntryCompleted', t => t.false(inst.updateEntryCompleted()));
 
 test('cannotBeUpdated', t => t.false(inst.cannotBeUpdated()));
+
+test('getCreateResponse', t => t.is(inst.getCreateResponse(), null));
+
+test('getUpdateResponse', t => t.is(inst.getUpdateResponse(), null));

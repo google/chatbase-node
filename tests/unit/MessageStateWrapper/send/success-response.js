@@ -47,7 +47,7 @@ test.after(t => {
 
 test('Receiving a valid response', t => {
   return eut.send().then(eut => {
-    t.is(eut.messageId(), resp.message_id,
+    t.is(eut.message_id, resp.message_id,
       'Should propagate the message-id of the response object to the message instance');
     t.true(eut.createEntryStarted(), 'createEntryStarted flag should be true');
     t.true(eut.createEntryCompleted(), 'createEntryCompleted flag should be true');

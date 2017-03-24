@@ -40,7 +40,7 @@ function acceptanceTest (t) {
     .then(function (msg) {
       t.pass('Should create the message');
       logger('Got response from message creation: \n %O', msg.getCreateResponse());
-      msg.setAsHandled()
+      msg.setIntent('book-hotel')
         .update()
         .then(function (msg) {
           t.pass('Should update the message');

@@ -33,8 +33,6 @@ test('setAsCreateCompleted without responseBody', t => {
     'Should have set the create.completed property to true');
   t.is(inst.getCreateResponse(), null,
     'The value of the response should be the IV given at invocation');
-  t.is(inst.messageId(), null,
-    'Given that the IV was null the message id should be null as well');
 });
 
 test('setAsCreateCompleted with responseBody', t => {
@@ -44,9 +42,6 @@ test('setAsCreateCompleted with responseBody', t => {
     'Should have set the create.completed property to true');
   t.deepEqual(inst.getCreateResponse(), bdy,
     'The value of the response should be the IV given at invocation');
-  t.is(inst.messageId(), bdy.message_id,
-    'Given that the IV had a valid messageId property and value the instance '
-    + 'should reflect that value');
 });
 
 test('setAsCreateErrored', t => {
