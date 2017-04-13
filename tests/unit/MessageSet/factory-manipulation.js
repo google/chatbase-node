@@ -78,6 +78,18 @@ test('setAsTypeAgent', t => {
   t.is(inst.newMessage().type, 'agent');
 });
 
+test('setVersion', t => {
+  const version = '1.3.2';
+  t.is(inst.setVersion(version).version, version);
+  t.is(inst.newMessage().version, version);
+});
+
+test('setIntent', t => {
+  const intent = 'test-functionality';
+  t.is(inst.setIntent(intent).intent, intent);
+  t.is(inst.newMessage().intent, intent);
+});
+
 test('newMessage invocation with only api_key and user_id arguments', t => {
   const msg = inst.newMessage('x', 'y');
   t.is(msg.api_key, 'x');

@@ -100,9 +100,9 @@ test('extractMessageId', t => {
     , 'Should return null not given a object');
   t.is(MessageStateWrapper.extractMessageId({}), null
     , 'Should return null given the object does contain a message_id property');
-  t.is(MessageStateWrapper.extractMessageId({message_id: 123}), 123
+  t.is(MessageStateWrapper.extractMessageId({message_id: 123}), null
     , 'Should return null given that the value of the message_id property is'
-    + ' of type string');
+    + ' not of type string');
   t.is(MessageStateWrapper.extractMessageId({message_id: '123'}), '123'
     , 'Should return the value of the message_id property given that it is of'
     + ' type string');
