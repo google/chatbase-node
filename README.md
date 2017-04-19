@@ -1,4 +1,5 @@
 # Chatbase Node.JS Client
+> This is not an official Google Product
 
 ## Setting up from repo clone
 
