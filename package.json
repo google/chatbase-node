@@ -1,6 +1,6 @@
 {
-  "name": "chatbase-node",
-  "version": "1.2.0",
+  "name": "@google/chatbase",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
