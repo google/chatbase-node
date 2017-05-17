@@ -1,28 +1,24 @@
 # Chatbase Node.JS Client
 > This is not an official Google Product
 
-## Setting up from repo clone
-
-1. mount the repo
-	* `cd chatbase-node`
-
-2. install dependencies
-	* `npm install`
-
-3. done!
-
 ## Use
+
+Install Via NPM
+
+```sh
+npm install --save @google/chatbase
+```
 
 Require the client in the target application:
 
 ```JS
-var chatbase = require('chatbase-node');
+var chatbase = require('@google/chatbase');
 ```
 
 Set a valid api key, user id, agent-type, and platform on the imported module to automatically create new messages with these fields pre-populated:
 
 ```JS
-var chatbase = require('chatbase-node')
+var chatbase = require('@google/chatbase')
 	.setApiKey(process.env.MY_CHATBASE_KEY)
 	.setUserId(process.env.MY_CHATBASE_ID)
 	.setPlatform('PLATFORM-X')
@@ -36,7 +32,7 @@ assert(msg.api_key === process.env.MY_CHATBASE_KEY);
 Or one can set these on each individual message. Note: api key and user id must be provided as arguments to newMessage if one would like to override the factory when it has been previously set.
 
 ```JS
-var chatbase = require('chatbase-node')
+var chatbase = require('@google/chatbase')
 	.setAsTypeAgent()
 	.setPlatform('PLATFORM-Y');
 	
@@ -50,7 +46,7 @@ assert(msg.platform === 'PLATFORM-Y');
 All fields, with the exception of user id and api key can be set on a message instance. User id and api key must be given as arguments when the message is instantiated.
 
 ```JS
-var chatbase = require('chatbase-node');
+var chatbase = require('@google/chatbase');
 	
 var msg = chatbase.newMessage('my-api-key', 'my-user-id')
 	.setAsTypeUser()
@@ -70,7 +66,7 @@ var msg = chatbase.newMessage('my-api-key', 'my-user-id')
 Once a message is populated, one can send it to the service and listen on its progress using promises. Note that timestamp is not explicitly set here (although it can be) since it is automatically set on the message to the time of instantiation. Note also that the client type does not need to be explictly set either unless an agent client type is required since the message will automatically default to the user type.
 
 ```JS
-var chatbase = require('chatbase-node');
+var chatbase = require('@google/chatbase');
 
 chatbase.newMessage('my-api-key', 'my-user-id')
 	.setPlatform('INTERWEBZ')
@@ -84,7 +80,7 @@ chatbase.newMessage('my-api-key', 'my-user-id')
 Given that a newly created message can be updated this can be achieved via the message interface as well.
 
 ```JS
-var chatbase = require('chatbase-node');
+var chatbase = require('@google/chatbase');
 
 chatbase.newMessage('my-api-key', 'my-user-id')
 	.setPlatform('INTERWEBZ')
@@ -105,7 +101,7 @@ chatbase.newMessage('my-api-key', 'my-user-id')
 Groups of messages can also be queued and sent together:
 
 ```JS
-var chatbase = require('chatbase-node');
+var chatbase = require('@google/chatbase');
 
 const set = chatbase.newMessageSet()
 	// The following are optional setters which will produce new messages with
