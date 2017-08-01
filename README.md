@@ -19,10 +19,9 @@ Set a valid api key, user id, agent-type, and platform on the imported module to
 
 ```JS
 var chatbase = require('@google/chatbase')
-	.setApiKey(process.env.MY_CHATBASE_KEY)
-	.setUserId(process.env.MY_CHATBASE_ID)
-	.setPlatform('PLATFORM-X')
-	.setAsTypeUser();
+	.setApiKey(process.env.MY_CHATBASE_KEY) // Your Chatbase API Key
+	.setPlatform('PLATFORM-X') // The platform you are interacting with the user over
+	.setAsTypeUser(); // The type of message you are sending to chatbase: user (user) or agent (bot)
 	
 var msg = chatbase.newMessage();
 // the following would then be true
@@ -49,18 +48,20 @@ All fields, with the exception of user id and api key can be set on a message in
 var chatbase = require('@google/chatbase');
 	
 var msg = chatbase.newMessage('my-api-key', 'my-user-id')
-	.setAsTypeUser()
-	.setAsTypeAgent()
-	.setTimestamp(Date.now().toString())
-	.setPlatform('PLATFORM-Z');
-	.setMessage('MY MESSAGE')
-	.setIntent('book-flight')
-	.setAsHandled()
-	.setAsNotHandled()
-	.setVersion('1.0')
-	.setAsFeedback()
-	.setAsNotFeedback()
-	.setMessageId('123');
+	.setAsTypeUser() // sets the message as type user
+	.setAsTypeAgent() // sets the message as type agent
+	// WARNING: setTimestamp() should only be called with a Unix Epoch with MS precision
+	.setTimestamp(Date.now().toString()) // Only unix epochs with Millisecond precision
+	.setPlatform('PLATFORM-Z') // sets the platform to the given value
+	.setMessage('MY MESSAGE') // the message sent by either user or agent
+	.setIntent('book-flight') // the intent of the sent message (does not have to be set for agent messages)
+	.setAsHandled() // set the message as handled -- this means the bot understood the message sent by the user
+	.setAsNotHandled() // set the message as not handled -- this means the opposite of the preceding
+	.setVersion('1.0') // the version that the deployed bot is
+	.setUserId('user-1234') // a unique string identifying the user which the bot is interacting with
+	.setAsFeedback() // sets the message as feedback from the user
+	.setAsNotFeedback() // sets the message as a regular message -- this is the default
+	.setMessageId('123'); // the id of the message, this is optional
 ```
 
 Once a message is populated, one can send it to the service and listen on its progress using promises. Note that timestamp is not explicitly set here (although it can be) since it is automatically set on the message to the time of instantiation. Note also that the client type does not need to be explictly set either unless an agent client type is required since the message will automatically default to the user type.
@@ -68,10 +69,11 @@ Once a message is populated, one can send it to the service and listen on its pr
 ```JS
 var chatbase = require('@google/chatbase');
 
-chatbase.newMessage('my-api-key', 'my-user-id')
+chatbase.newMessage('my-api-key')
 	.setPlatform('INTERWEBZ')
 	.setMessage('CAN I HAZ?')
 	.setVersion('1.0')
+	.setUserId('unique-user-0')
 	.send()
 	.then(msg => console.log(msg.getCreateResponse()))
 	.catch(err => console.error(err));
@@ -86,6 +88,7 @@ chatbase.newMessage('my-api-key', 'my-user-id')
 	.setPlatform('INTERWEBZ')
 	.setMessage('DO NOT WORK')
 	.setVersion('1.0');
+	.setUserId('unique-user-0')
 	.send()
 	.then(msg => {
 		msg.setIntent('an-intent')
@@ -107,13 +110,13 @@ const set = chatbase.newMessageSet()
 	// The following are optional setters which will produce new messages with
 	// the corresponding fields already set!
 	.setApiKey('abc')
-	.setUserId('123')
 	.setPlatform('chat-space');
 
 // Once can add new messages to the set without storing them locally
 set.newMessage()
 	.setMessage('test_1')
 	.setIntent('book-flight')
+	.setUserId('unique-user-0')
 	// This is a regular message object with all the same setter with the caveat
 	// that one cannot send the message individually. All other setter methods
 	// still apply though.
