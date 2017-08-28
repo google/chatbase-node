@@ -37,6 +37,27 @@ test('Should set the timestamp to the given value', t => {
   t.is(inst.setTimestamp(ts).time_stamp, ts);
 });
 
+test('Should set the user id to the given value', t => {
+  const user_id = "123-abc";
+  t.is(inst.setUserId(user_id).user_id, user_id);
+});
+
+test('Should allow chaining of set message to user_id', t => {
+  // Regression: https://github.com/google/chatbase-node/issues/1
+  try {
+    inst.setAsTypeUser()
+        .setPlatform('New Line Cinema')
+        .setVersion('Rebobinados')
+        .setTimestamp(Date.parse('22 February 2008').toString())
+        .setMessage('Be kind please rewind')
+        .setUserId('Jack Black');
+  } catch (e) {
+    t.fail("Should not throw");
+    return;
+  }
+  t.pass("Should not throw");
+});
+
 test('Should set the platform to the given value', t => {
   t.is(inst.setPlatform(STUB).platform, STUB);
 });
