@@ -1,6 +1,6 @@
 {
   "name": "@google/chatbase",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -42,6 +42,6 @@
     ]
   },
   "engines": {
-    "node" : ">=6.5"
+    "node": ">=6.5"
   }
 }
