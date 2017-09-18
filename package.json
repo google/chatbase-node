@@ -40,5 +40,8 @@
     "exclude": [
       "tests"
     ]
+  },
+  "engines": {
+    "node" : ">=6.5"
   }
 }
