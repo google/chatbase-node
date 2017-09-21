@@ -42,6 +42,7 @@ function acceptanceTest (t) {
   const msgTwo = set.newMessage()
     .setMessage('This acceptance test was terrible!')
     .setIntent('book-hotel')
+    .setResponseTime(5)
     .setAsNotHandled()
     .setAsFeedback();
   set.sendMessageSet()

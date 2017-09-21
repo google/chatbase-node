@@ -70,6 +70,11 @@ test('Should set the intent to the given value', t => {
   t.is(inst.setIntent(STUB).intent, STUB);
 });
 
+test('Should set the response time to the given value', t => {
+  const r = 1.23
+  t.is(inst.setResponseTime(r).response_time, r);
+});
+
 test('Should set the instance as not handled', t => {
   t.is(inst.setAsHandled().not_handled, false);
 });

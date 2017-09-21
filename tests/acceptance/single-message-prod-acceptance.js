@@ -34,6 +34,7 @@ function acceptanceTest (t) {
     .setPlatform('Twitter')
     .setMessage('The flight was easy to book!!')
     .setIntent('book-flight')
+    .setResponseTime(1.03)
     .setAsNotHandled()
     .setAsFeedback()
     .send()
