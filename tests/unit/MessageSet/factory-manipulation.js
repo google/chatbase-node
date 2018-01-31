@@ -28,70 +28,75 @@ var inst;
 test.beforeEach(t => inst = new MessageSet());
 
 test('static extractPayloadsFromMessageSet', t => {
-  const msgs = 
-    [(new MessageSetMessage('a', 'b').setPlatform('x').setMessage('y'))];
-  t.deepEqual(msgs.map(v => v.exportCreatePayload()),
-    MessageSet.extractPayloadsFromMessageSet(msgs));
+    const msgs =
+        [(new MessageSetMessage('a', 'b').setPlatform('x').setMessage('y'))];
+    t.deepEqual(msgs.map(v => v.exportCreatePayload()),
+        MessageSet.extractPayloadsFromMessageSet(msgs));
 });
 
 test('static extractPayloadsFromMessageSet - extraction error', t => {
-  const msgs = [new MessageSetMessage('a', 'b')];
-  t.true(MessageSet.extractPayloadsFromMessageSet(msgs) instanceof 
-    MessageSinkErrors.RequiredKeysNotSet);
+    const msgs = [new MessageSetMessage('a', 'b')];
+    t.true(MessageSet.extractPayloadsFromMessageSet(msgs) instanceof
+        MessageSinkErrors.RequiredKeysNotSet);
 });
 
 test('Initial state', t => {
-  t.is(inst.api_key, null);
-  t.is(inst.user_id, null);
-  t.is(inst.platform, null);
-  t.is(inst.type, null);
-  t.deepEqual(inst.messages, []);
-  t.true(inst._state instanceof MessageLifecycleState);
+    t.is(inst.api_key, null);
+    t.is(inst.user_id, null);
+    t.is(inst.platform, null);
+    t.is(inst.type, null);
+    t.deepEqual(inst.messages, []);
+    t.true(inst._state instanceof MessageLifecycleState);
 });
 
 test('newMessage message type return', t => {
-  t.true(inst.newMessage() instanceof MessageSetMessage);
+    t.true(inst.newMessage() instanceof MessageSetMessage);
 });
 
 test('setApiKey', t => {
-  t.is(inst.setApiKey('x').api_key, 'x');
-  t.is(inst.newMessage().api_key, 'x');
+    t.is(inst.setApiKey('x').api_key, 'x');
+    t.is(inst.newMessage().api_key, 'x');
 });
 
 test('setUserId', t => {
-  t.is(inst.setUserId('x').user_id, 'x');
-  t.is(inst.newMessage().user_id, 'x');
+    t.is(inst.setUserId('x').user_id, 'x');
+    t.is(inst.newMessage().user_id, 'x');
 });
 
 test('setPlatform', t => {
-  t.is(inst.setPlatform('x').platform, 'x');
-  t.is(inst.newMessage().platform, 'x');
+    t.is(inst.setPlatform('x').platform, 'x');
+    t.is(inst.newMessage().platform, 'x');
 });
 
 test('setAsTypeUser', t => {
-  t.is(inst.setAsTypeUser().type, 'user');
-  t.is(inst.newMessage().type, 'user');
+    t.is(inst.setAsTypeUser().type, 'user');
+    t.is(inst.newMessage().type, 'user');
 });
 
 test('setAsTypeAgent', t => {
-  t.is(inst.setAsTypeAgent().type, 'agent');
-  t.is(inst.newMessage().type, 'agent');
+    t.is(inst.setAsTypeAgent().type, 'agent');
+    t.is(inst.newMessage().type, 'agent');
 });
 
 test('setVersion', t => {
-  const version = '1.3.2';
-  t.is(inst.setVersion(version).version, version);
-  t.is(inst.newMessage().version, version);
+    const version = '1.3.2';
+    t.is(inst.setVersion(version).version, version);
+    t.is(inst.newMessage().version, version);
 });
 
 test('setIntent', t => {
-  const intent = 'test-functionality';
-  t.is(inst.setIntent(intent).intent, intent);
-  t.is(inst.newMessage().intent, intent);
+    const intent = 'test-functionality';
+    t.is(inst.setIntent(intent).intent, intent);
+    t.is(inst.newMessage().intent, intent);
+});
+
+test('setCustomSessionId', t => {
+    t.is(inst.setCustomSessionId('x').custom_session_id, 'x');
+    t.is(inst.newMessage().custom_session_id, 'x');
 });
 
 test('newMessage invocation with only api_key and user_id arguments', t => {
-  const msg = inst.newMessage('x', 'y');
-  t.is(msg.api_key, 'x');
-  t.is(msg.user_id, 'y');
+    const msg = inst.newMessage('x', 'y');
+    t.is(msg.api_key, 'x');
+    t.is(msg.user_id, 'y');
 });

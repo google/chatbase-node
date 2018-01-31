@@ -61,6 +61,7 @@ var msg = chatbase.newMessage('my-api-key', 'my-user-id')
 	.setUserId('user-1234') // a unique string identifying the user which the bot is interacting with
 	.setAsFeedback() // sets the message as feedback from the user
 	.setAsNotFeedback() // sets the message as a regular message -- this is the default
+	.setCustomSessionId('123') // custom sessionId. A unique string used to define the scope of each individual interaction with bot.
 	.setMessageId('123'); // the id of the message, this is optional
 ```
 
