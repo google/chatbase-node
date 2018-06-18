@@ -67,8 +67,8 @@ test('setIntent', t => {
 });
 
 test('setCustomSessionId', t => {
-    t.is(inst.setCustomSessionId('x').custom_session_id, 'x');
-    t.is(inst.newMessage().custom_session_id, 'x');
+    t.is(inst.setCustomSessionId('x').session_id, 'x');
+    t.is(inst.newMessage().session_id, 'x');
 });
 
 test('newMessage invocation with only api_key and user_id arguments', t => {
