@@ -142,7 +142,7 @@ test('validateCreateManifest should return false on a new instance', t => {
 test('validateCreateManifest should return true when all required string are set',  t => {
   inst.api_key = STUB;
   inst.user_id = STUB;
-  t.is(inst.setPlatform(STUB).setMessage(STUB).validateCreateManifest(), true);
+  t.is(inst.setPlatform(STUB).validateCreateManifest(), true);
 });
 
 test('validateUpdateManifest should return false on an instance with api_key and message_id set', t => {
