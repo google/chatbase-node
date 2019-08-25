@@ -66,7 +66,7 @@ var msg = chatbase.newMessage('my-api-key', 'my-user-id')
 	.setClientTimeout(5000) // Set the TTL in Milliseconds on requests to the Chatbase API. Default is 5000ms.
 ```
 
-Once a message is populated, one can send it to the service and listen on its progress using promises. Note that timestamp is not explicitly set here (although it can be) since it is automatically set on the message to the time of instantiation. Note also that the client type does not need to be explictly set either unless an agent client type is required since the message will automatically default to the user type.
+Once a message is populated, one can send it to the service and listen on its progress using promises. Note that timestamp is not explicitly set here (although it can be) since it is automatically set on the message to the time of instantiation. Note also that the client type does not need to be explicitly set either unless an agent client type is required since the message will automatically default to the user type.
 
 ```JS
 var chatbase = require('@google/chatbase');
