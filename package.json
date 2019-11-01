@@ -11,7 +11,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "ava": "^0.18.1",
-    "eslint": "^3.17.0",
+    "eslint": "^6.6.0",
     "lodash.every": "^4.6.0",
     "lodash.isfunction": "^3.0.8",
     "lodash.pick": "^4.4.0",
