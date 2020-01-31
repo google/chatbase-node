@@ -62,7 +62,7 @@ var msg = chatbase.newMessage('my-api-key', 'my-user-id')
 	.setAsFeedback() // sets the message as feedback from the user
 	.setAsNotFeedback() // sets the message as a regular message -- this is the default
 	.setCustomSessionId('123') // custom sessionId. A unique string used to define the scope of each individual interaction with bot.
-	.setMessageId('123'); // the id of the message, this is optional
+	.setMessageId('123') // the id of the message, this is optional
 	.setClientTimeout(5000) // Set the TTL in Milliseconds on requests to the Chatbase API. Default is 5000ms.
 ```
 
