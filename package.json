@@ -19,6 +19,7 @@
     "nyc": "^10.1.2"
   },
   "dependencies": {
+    "convict": "^5.2.0",
     "debug": "^2.6.0",
     "got": "^6.7.1",
     "lodash.every": "^4.6.0",

@@ -141,3 +141,16 @@ set.sendMessageSet()
 		console.error(error);
 	})
 ```
+
+## Use behind proxy
+
+If you are behind a proxy and need to use `http` instead of `https` you can
+overwrite the default endpoints that Chatbase uses as follows:
+
+```JS
+var chatbase = require('@google/chatbase')
+	...
+	.setCreateEndpoint(); // default: https://chatbase-area120.appspot.com/api/message
+	.setCreateSetEndpoint(); // default: https://chatbase-area120.appspot.com/api/messages
+	.setUpdateEndpoint(); // default: https://chatbase-area120.appspot.com/api/message/update
+```
