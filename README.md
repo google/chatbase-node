@@ -150,7 +150,7 @@ overwrite the default endpoints that Chatbase uses as follows:
 ```JS
 var chatbase = require('@google/chatbase')
 	...
-	.setCreateEndpoint(); // default: https://chatbase-area120.appspot.com/api/message
-	.setCreateSetEndpoint(); // default: https://chatbase-area120.appspot.com/api/messages
-	.setUpdateEndpoint(); // default: https://chatbase-area120.appspot.com/api/message/update
+	.setCreateEndpoint('http://custom-create-endpoint.com/api/message'); // default: https://chatbase-area120.appspot.com/api/message
+	.setCreateSetEndpoint('http://custom-create-set-endpoint.com/api/messages'); // default: https://chatbase-area120.appspot.com/api/messages
+	.setUpdateEndpoint('http://custom-update-endpoint.com/api/messages/update'); // default: https://chatbase-area120.appspot.com/api/message/update
 ```
